@@ -14,8 +14,8 @@ module.exports = {
         demo: 'demo'
     },
     default: {
-        git: '',
-        name: '无'
+        git: 'git@github.com:NG-D/directives.git',
+        name: 'directives'
     },
     rcp: {
         git: 'https://w.gdy.io/dyf_w/rcp.git',

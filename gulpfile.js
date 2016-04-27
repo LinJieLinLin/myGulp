@@ -17,7 +17,7 @@ var configObj = function() {
         //雪碧图的路径
         spriteDir: '/',
         buildHtml: '',
-        branch: 'buildDev',
+        branch: 'gh-pages',
         gitName: '',
         initDist: [],
     };

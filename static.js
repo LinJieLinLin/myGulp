@@ -1,6 +1,6 @@
 var sprite = require('gulp.spritesmith');
 module.exports = function(gulp, _, dir, config, configObj) {
-    gulp.task('copy:info', ['copy:root'], function() {
+    gulp.task('copy:info', [], function() {
         var outPath = configObj.main;
         var outPathDist = config.dir.dist;
         console.log(outPath, outPathDist, 'src/.bowerrc', 'src/*.json', 'src/*.MD', 'src/*.sh');
@@ -19,15 +19,15 @@ module.exports = function(gulp, _, dir, config, configObj) {
             .pipe(gulp.dest(outPath))
             .pipe(gulp.dest(outPathDist));
     });
-    gulp.task('copy:root', ['copy:module'], function() {
-        var outPath = config.dir.root;
-        return gulp.src([config.dir.src + '.bowerrc',
-                config.dir.src + '*.json',
-                config.dir.src + '*.MD',
-                config.dir.src + '*.sh'
-            ])
-            .pipe(gulp.dest(outPath));
-    });
+    // gulp.task('copy:root', ['copy:module'], function() {
+    //     var outPath = config.dir.root;
+    //     return gulp.src([config.dir.src + '.bowerrc',
+    //             config.dir.src + '*.json',
+    //             config.dir.src + '*.MD',
+    //             config.dir.src + '*.sh'
+    //         ])
+    //         .pipe(gulp.dest(outPath));
+    // });
     gulp.task('copy:module', [], function() {
         var outPath = configObj.main + 'styles/module';
         var outPathDist = config.dir.dist + 'styles/module';
