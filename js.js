@@ -11,6 +11,7 @@ module.exports = function(gulp, _, dir, config, configObj) {
                     return callback(null, file);
                 }
                 var content = String(file.contents);
+                // console.log('name', content);
                 var n = content.replace(/templateUrl\s*?:\s*?["|'](.*?)["|']/igm, function(match, url) {
                     var c = fs.readFileSync(dir('src/' + url), 'utf8');
                     var min = htmlmin(c, { collapseWhitespace: true, removeComments: true, minifyJS: true, minifyCSS: true }).replace(/'/g, "\\'");
@@ -22,10 +23,11 @@ module.exports = function(gulp, _, dir, config, configObj) {
         });
     }
     gulp.task('copy:js', ['copy:directive'], function() {
-        console.log('js', config.dir.js[0], configObj.main);
+        var path = [config.dir.js[0], '!' + config.dir.js[1]];
         var outPath = configObj.main;
         var outPathDist = config.dir.dist;
-        return gulp.src([config.dir.js[0], '!' + config.dir.js[1]])
+        console.log('copy:js', path);
+        return gulp.src(path)
             .pipe(_.plumber())
             // auto complete the angular's annotate
             /* jshint camelcase: false */
@@ -39,14 +41,12 @@ module.exports = function(gulp, _, dir, config, configObj) {
             .pipe(gulp.dest(outPath))
             .pipe(gulp.dest(outPathDist));
     });
-    gulp.task('copy:directive', function() {
-        console.log('copy:directive');
+    gulp.task('copy:directive', ['sass'], function() {
+        var path = config.dir.js[1];
         var outPath = configObj.main + 'directive';
         var outPathDist = config.dir.dist + 'directive';
-        if (configObj.length && configObj[0] === 'build') {
-            outPath = config.dir.dist;
-        }
-        return gulp.src(config.dir.js[1])
+        console.log('copy:directive', path);
+        return gulp.src(path)
             .pipe(_.plumber())
             // auto complete the angular's annotate
             /* jshint camelcase: false */

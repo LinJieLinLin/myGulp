@@ -1,4 +1,36 @@
+var Transform = require('readable-stream/transform');
+var fs = require('fs');
 module.exports = function(gulp, _, dir, config, configObj) {
+    //directive 模板替换
+    function replaceCss() {
+        return new Transform({
+            objectMode: true,
+            transform: function(file, enc, callback) {
+                console.log(file.history[0]);
+                if (file.isNull()) {
+                    return callback(null, file);
+                }
+                var filePath = file.history[0].replace('.scss', '.html');
+                try {
+                    var c = fs.readFileSync(filePath, 'utf8');
+                    var oldContent = String(file.contents);
+                    var newContent = c.replace(/<style type="text\/css">[^]*<\/style>/im, function(match) {
+                        console.log(match);
+                        return '<style type="text/css">' + oldContent + '</style>';
+                    });
+                    if (c != newContent) {
+                        fs.writeFile(filePath, newContent, function(err) {
+                            if (err) throw err;
+                            console.log('It\'s saved!');
+                        });
+                    }
+                } catch (e) {
+                    console.log('no filePath:' + filePath);
+                }
+                callback(null, file);
+            }
+        });
+    }
     //复制旧的css文件
     gulp.task('copy:css', function() {
         console.log('css', config.dir.css[0], config.dir.scss[0]);
@@ -21,6 +53,8 @@ module.exports = function(gulp, _, dir, config, configObj) {
             .pipe(_.cleanCss({ compatibility: 'ie8' }))
             // add vendor prefixes to the css file
             .pipe(_.autoprefixer({ browsers: ['chrome > 35', 'ff > 10', 'opera > 10', 'ie > 6'] }))
+            //directive css写入模板
+            .pipe(replaceCss())
             .pipe(gulp.dest(outPath))
             .pipe(gulp.dest(outPathDist));
     });
