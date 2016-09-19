@@ -5,7 +5,7 @@ module.exports = {
         root: '../',
         src: '../src/',
         html: ['../src/*.html', '/*.html', '../src/**/*.html', '../src/*.html'],
-        js: ['../src/**/*.js', '../src/directive/**/*.js'],
+        js: ['../src/**/*.js', '../src/directive/**/*.js','../src/node_modules/**/*.js'],
         css: ['../src/**/*.css'],
         scss: ['../src/**/*.scss'],
         img: ['../src/**/*.{png,jpg,jpeg,gif}', 'imgs', '../src/imgs'],

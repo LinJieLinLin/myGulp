@@ -23,7 +23,7 @@ module.exports = function(gulp, _, dir, config, configObj) {
         });
     }
     gulp.task('copy:js', ['copy:directive'], function() {
-        var path = [config.dir.js[0], '!' + config.dir.js[1]];
+        var path = [config.dir.js[0], '!' + config.dir.js[1], '!' + config.dir.js[2]];
         var outPath = configObj.main;
         var outPathDist = config.dir.dist;
         console.log('copy:js', path);
@@ -33,6 +33,9 @@ module.exports = function(gulp, _, dir, config, configObj) {
             /* jshint camelcase: false */
             .pipe(_.ngAnnotate({
                 single_quotes: true
+            }))
+            .pipe(_.babel({
+                presets: ['es2015']
             }))
             //压缩
             // .pipe(_.uglify())
@@ -52,6 +55,9 @@ module.exports = function(gulp, _, dir, config, configObj) {
             /* jshint camelcase: false */
             .pipe(_.ngAnnotate({
                 single_quotes: true
+            }))
+            .pipe(_.babel({
+                presets: ['es2015']
             }))
             //压缩
             // .pipe(_.uglify())

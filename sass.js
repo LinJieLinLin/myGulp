@@ -50,8 +50,8 @@ module.exports = function(gulp, _, dir, config, configObj) {
                         console.log(filePath, match);
                         var temId = path.basename(file.history[0], '.scss');
                         return '//cssStart\n var cssTpl=\'<style type="text/css" id="tpl-' + temId +
-                            '">' + oldContent + '</style>\'\n' +
-                            'if (!$("#tpl-' + temId + '").length) {$("body").append(cssTpl);}//cssEnd';
+                            '">' + oldContent + '</style>\';\n' +
+                            'if (!$("#tpl-' + temId + '").length) {$("body").prepend(cssTpl);}\n//cssEnd';
                     });
                     if (c != newContent) {
                         fs.writeFile(filePath, newContent, function(err) {

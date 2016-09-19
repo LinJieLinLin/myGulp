@@ -55,29 +55,4 @@ module.exports = function(gulp, _, dir, config, configObj) {
             }))
             .pipe(gulp.dest(config.dir.img[2]));
     });
-
-    // gulp.task('copy:gulp', ['copy:gulp-file', 'copy:build-sh'], function() {
-    //     return gulp.src(['gulp', 'package.json', 'karma.conf.js', 'image-sprite-tmpl.handlebars', 'gulpfile.js', 'config.js'])
-    //         .pipe(gulp.dest('../../study-circle/tool'))
-    //         .pipe(gulp.dest('../../space/tool'))
-    //         .pipe(gulp.dest('../../order/tool'))
-    //         .pipe(gulp.dest('../../rcp-common/tool'))
-    //         .pipe(gulp.dest('../../tool'));
-    // });
-    // gulp.task('copy:gulp-file', [], function() {
-    //     return gulp.src(['gulp/*.*'])
-    //         .pipe(gulp.dest('../../study-circle/tool/gulp'))
-    //         .pipe(gulp.dest('../../space/tool/gulp'))
-    //         .pipe(gulp.dest('../../order/tool/gulp'))
-    //         .pipe(gulp.dest('../../rcp-common/tool/gulp'))
-    //         .pipe(gulp.dest('../../tool/gulp'));
-    // });
-    // gulp.task('copy:build-sh', function() {
-    //     return gulp.src(['../../build.sh'])
-    //         .pipe(gulp.dest('../../study-circle'))
-    //         .pipe(gulp.dest('../../space'))
-    //         .pipe(gulp.dest('../../order'))
-    //         .pipe(gulp.dest('../../rcp-common'))
-    //         .pipe(gulp.dest('../..'));
-    // });
 };
