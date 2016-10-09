@@ -13,6 +13,20 @@ module.exports = function(gulp, _, dir, config, configObj) {
             .pipe(_.if('*.html', _.htmlmin({ collapseWhitespace: true, removeComments: true, minifyJS: true, minifyCSS: true })))
             .pipe(gulp.dest(outPathDist));
     });
+    //生成文档
+    gulp.task('build:doc', function() {
+        var outPath = configObj.main + '/doc';
+        var outPathDist = config.dir.dist + '/doc';
+        var fType = {
+            html: 'html',
+            md: 'md',
+            json: 'json',
+        };
+        gulp.src('../src/demo/*.js')
+            .pipe(_.documentation({ format: fType.html }))
+            .pipe(gulp.dest(outPath))
+            .pipe(gulp.dest(outPathDist));
+    });
     //清理dist目录
     gulp.task('clean', function() {
         console.log('start clean');
@@ -38,27 +52,6 @@ module.exports = function(gulp, _, dir, config, configObj) {
         return gulp.src(path.resolve(__dirname, '../../font-awesome/fonts/*'))
             .pipe(gulp.dest(config.dir.src + '/fonts'));
     });
-    //旧rcp-common的任务，暂无作用
-    // gulp.task('iconfontSvg', function() {
-    //     return gulp.src(path.resolve(__dirname, 'src/svgs/*'), { base: './src' })
-    //     .pipe(_.iconfont({ fontName: 'iconfont' }))
-    //     .on('glyphs', function(glyphs) {
-    //         glyphs.forEach(function(item) {
-    //             item.code = item.unicode[0].charCodeAt(0).toString(16).toUpperCase();
-    //         });
-    //         gulp.src(path.resolve(__dirname, 'iconfont-tmpl.handlebars'))
-    //             .pipe(_.consolidate('handlebars', {
-    //                 glyphs: glyphs,
-    //                 fontName: 'iconfont',
-    //                 fontPath: '/fonts/',
-    //                 className: 'icon'
-    //             }))
-    //             .on('error', function(e) { console.log(e); })
-    //             .pipe(_.rename('_iconfont.scss'))
-    //             .pipe(gulp.dest(path.resolve(__dirname, 'src/styles/module')));
-    //     })
-    //     .pipe(gulp.dest(path.resolve(__dirname, 'fonts/')));
-    // });
     //rcp-common包第一次安装时要执行
     gulp.task('build:common', ['fontawesome:font']);
 };
