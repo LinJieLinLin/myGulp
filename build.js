@@ -23,7 +23,7 @@ module.exports = function(gulp, _, dir, config, configObj) {
             json: 'json',
         };
         gulp.src('../src/demo/*.js')
-            .pipe(_.documentation({ format: fType.html }))
+            .pipe(_.documentation(fType.html))
             .pipe(gulp.dest(outPath))
             .pipe(gulp.dest(outPathDist));
     });
